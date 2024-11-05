@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-
-  <!-- ExternalStorageConfigurationManager component is enabled -->
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-
-  <!-- JavadocGenerationManager component specifies the output directory for generated Javadocs -->
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/src/main/java/AdaptiveLibraryManagementSystem" />
   </component>
-
-  <!-- MavenProjectsManager component manages the Maven project configuration -->
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <!-- Specifies the path to the Maven POM file -->
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
-
-  <!-- PWA (Progressive Web App) component is enabled and was activated at least once -->
   <component name="PWA">
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
-
-  <!-- ProjectRootManager component sets the Java version and project SDK -->
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="openjdk-22" project-jdk-type="JavaSDK">
-    <!-- Specifies the output directory for compiled project files -->
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="corretto-22" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
-
 </project>
