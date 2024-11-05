@@ -15,11 +15,25 @@ Single Responsibility Principle
 Understand the importance of single responsibility
 Identify classes with too many responsibilities
 Refactor those classes into smaller classes with single responsibilities with the use of design patterns
+Use of decorator and Composite
+
+Open/Closed Principle
+Understand the importance of open/closed
+open for extension, closed for modification
+identifying areas that may be changed in the future
+don't bother with effort if it may never be extended in the future
+abstract classes and interfaces to separate client from ...
+template method pattern used
+interface > implementation inheritance = more adaptability
+composition over inheritance
+
+Liskov substitution principleq
 
 
 
 
 
+Golden master test
 
 TODO: Add error handling and consistency in user prompts (Slighlty detracts from overall quality)
 TODO: Incorporating error handling within the methods—for instance, notifying users of any mistakes when they enter an invalid book ID or member ID, rather than allowing the program to crash.
