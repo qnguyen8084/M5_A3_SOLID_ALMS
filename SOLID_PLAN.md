@@ -27,7 +27,7 @@ template method pattern used
 interface > implementation inheritance = more adaptability
 composition over inheritance
 
-Liskov substitution principleq
+Liskov substitution principle
 
 
 
