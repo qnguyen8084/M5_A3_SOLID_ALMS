@@ -28,7 +28,18 @@ interface > implementation inheritance = more adaptability
 composition over inheritance
 
 Liskov substitution principle
+Rule broken if new subclass requires changes to any client of the base class or interface
+If no changes to interface there should ne no need to change any existing code
+LSP enforces SRP and OCP
+*If S is subT of T, then obj of type T may be replaced with object of type S*
+Base type: type(T) the clients have reference to. Clients call various mehthods and subtype of T
+may override these methods if specialization needed
+Subtype: Client should not know specifics about subtype and should behave the same no matter what
+subtype instance that is given.
+Context: The way the client interacts with the subtype.
 
+LSP rules
+ 
 
 
 
