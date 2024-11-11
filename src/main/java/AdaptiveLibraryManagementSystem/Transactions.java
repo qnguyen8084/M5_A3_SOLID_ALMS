@@ -7,11 +7,11 @@ interface Addable<T> {
 interface Removable {
     void remove(int id);
 }
+interface Listable {
+    void list();
+}
 
 interface Searchable {
     void search(String searchTerm);
 }
 
-interface Listable {
-    void list();
-}

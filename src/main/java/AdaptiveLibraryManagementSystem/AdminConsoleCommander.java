@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
  the adminInterface.
  */
 
-// TODO: Decorator to add commands
 public class AdminConsoleCommander {
 
     // This instantiates an AdministratorInterface class object

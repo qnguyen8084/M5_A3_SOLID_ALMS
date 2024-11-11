@@ -11,7 +11,7 @@ package AdaptiveLibraryManagementSystem;
 
 public abstract class User {
     private final String name;
-    private int Id;
+    private int id;
 
     public User(String name) {
         this.name = name;
@@ -19,7 +19,7 @@ public abstract class User {
 
     public User(String name, int Id) {
         this.name = name;
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getName() {
@@ -27,7 +27,7 @@ public abstract class User {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 }
 

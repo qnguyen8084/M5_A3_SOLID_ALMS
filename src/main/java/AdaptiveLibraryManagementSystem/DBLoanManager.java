@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
-public class DBLoanManager implements Addable<Loan>, Removable, Searchable, Listable {
+public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
     private final Logger logger;
 
     public DBLoanManager(Logger logger) {
@@ -92,7 +92,7 @@ public class DBLoanManager implements Addable<Loan>, Removable, Searchable, List
         for (Integer s : Arrays.asList(availability, bookId)) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        logger.log(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     // Method to add a loan record to the database
@@ -111,7 +111,7 @@ public class DBLoanManager implements Addable<Loan>, Removable, Searchable, List
         for (Integer s : Arrays.asList(loan.getMemberId(), loan.getBookId())) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        logger.log(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     // Method to remove a loan record from the database
@@ -129,7 +129,7 @@ public class DBLoanManager implements Addable<Loan>, Removable, Searchable, List
         for (Integer s : Arrays.asList(memberId, bookId)) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        logger.log(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     @Override
@@ -155,7 +155,4 @@ public class DBLoanManager implements Addable<Loan>, Removable, Searchable, List
         }
     }
 
-    @Override
-    public void remove(int bookId) {
-    }
 }

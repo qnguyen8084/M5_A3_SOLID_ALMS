@@ -13,12 +13,13 @@ package AdaptiveLibraryManagementSystem;
 import java.sql.*;
 
 interface Logger {
-    void log(String message);
+    void logEvent(String message);
 }
 
 public class DBHistoryLogger implements Logger{
 
     private static final String HISTORY_DB_URL = "jdbc:sqlite:myLibraryHistory.db";
+
     private static final String CREATE_TRANSACTION_HISTORY_TABLE = """
                     CREATE TABLE IF NOT EXISTS history(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,7 +60,7 @@ public class DBHistoryLogger implements Logger{
     }
 
     @Override
-    public void log(String message) {
+    public void logEvent(String message) {
         String sql = "INSERT INTO history (operation) VALUES (?)";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

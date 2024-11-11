@@ -41,7 +41,7 @@ public class DBUserManager implements Addable<Member>, Removable, Searchable, Li
         }
 
         // Log the transaction to history by replacing the first '?' with the member name
-        logger.log(sql.replaceFirst("\\?", member.getName()));
+        logger.logEvent(sql.replaceFirst("\\?", member.getName()));
     }
 
     /*
@@ -61,7 +61,7 @@ public class DBUserManager implements Addable<Member>, Removable, Searchable, Li
         }
 
         // Log the transaction to history by replacing the first '?' with the member ID
-        logger.log(sql.replaceFirst("\\?", String.valueOf(memberId)));
+        logger.logEvent(sql.replaceFirst("\\?", String.valueOf(memberId)));
     }
     /*
      * Lists all the members in the members table by retrieving their details from the database.
