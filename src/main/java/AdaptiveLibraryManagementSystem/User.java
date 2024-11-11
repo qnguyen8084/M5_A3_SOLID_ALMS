@@ -1,7 +1,8 @@
 /*
  * Quy Nguyen
  * CS635
- * Adaptive Library Management System - Solid Edition
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * User.java
  * Nov 11, 2024
  */
