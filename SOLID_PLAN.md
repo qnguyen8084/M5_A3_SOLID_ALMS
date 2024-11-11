@@ -68,4 +68,6 @@ Separate logger function from DBManager classes (Book, Loan, User)
 Update DBBookManager, DBLoanManager, and DBUserManager to use new logger interface by
 creating new logger object.
 
-Update contructors for DBBookManager, DBUserManager, and DBLoanManager to use dependency injection for DBHistoryLogger.
+Update constructors for DBBookManager, DBUserManager, and DBLoanManager to use dependency injection for DBHistoryLogger.
+
+Remove unused methods from DBManager.java

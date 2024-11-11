@@ -68,23 +68,6 @@ public class DBManager implements DBOperations {
         return DriverManager.getConnection(URL);
     }
 
-    private static Connection overriddenConnection;
-
-    public static void overrideConnection(Connection connection) {
-        overriddenConnection = connection;
-    }
-
-    public static void restoreDefaultConnection() {
-        overriddenConnection = null;
-    }
-
-    public static Connection getConnection() throws SQLException {
-        if (overriddenConnection != null) {
-            return overriddenConnection;
-        }
-        return DriverManager.getConnection(URL);
-    }
-
     // Search function to search.
     @Override
     public void search(String table, String searchField, String searchString) {
