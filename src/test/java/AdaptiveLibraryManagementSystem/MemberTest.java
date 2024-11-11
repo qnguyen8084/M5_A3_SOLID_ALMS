@@ -16,7 +16,7 @@ class MemberTest {
     // Test case to verify the getId() method for a Member object initialized with an ID
     @Test
     void testGetIdForMemberWithId() {
-        Member member = new Member(999, "John Doe"); // Creating a new member with ID 999
+        Member member = new Member("John Doe", 999); // Creating a new member with ID 999
         assertEquals(999, member.getId()); // Asserting that getId() returns the correct ID
     }
 
@@ -30,7 +30,7 @@ class MemberTest {
     // Test case to verify the getId() method for an Employee object initialized with an ID
     @Test
     void testGetIdForEmployeeWithId() {
-        Employee employee = new Employee(999, "Jane Doe"); // Creating a new employee with ID 999
+        Employee employee = new Employee("Jane Doe", 999); // Creating a new employee with ID 999
         assertEquals(999, employee.getId()); // Asserting that getId() returns the correct ID
     }
 }

@@ -11,28 +11,34 @@ package AdaptiveLibraryManagementSystem;
 
 public abstract class User {
     private final String name;
+    private int Id;
 
     public User(String name) {
         this.name = name;
     }
 
+    public User(String name, int Id) {
+        this.name = name;
+        this.Id = Id;
+    }
+
     public String getName() {
         return name;
     }
+
+    public int getId() {
+        return Id;
+    }
 }
 
-interface FetchId {
-    int getId();
-}
-
-class Employee extends User implements FetchId {
+class Employee extends User {
     private int employeeId;
 
     public Employee(String name) {
         super(name);
     }
 
-    public Employee(int employeeId, String name) {
+    public Employee(String name, int employeeId) {
         super(name);
         this.employeeId = employeeId;
     }
@@ -43,14 +49,14 @@ class Employee extends User implements FetchId {
     }
 }
 
-class Member extends User implements FetchId {
+class Member extends User {
     private int memberId;
 
     public Member(String name) {
         super(name);
     }
 
-    public Member(int memberId, String name) {
+    public Member(String name, int memberId) {
         super(name);
         this.memberId = memberId;
     }

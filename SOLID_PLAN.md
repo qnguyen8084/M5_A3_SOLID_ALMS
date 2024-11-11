@@ -50,3 +50,10 @@ TODO: Add error handling and consistency in user prompts (Slighlty detracts from
 TODO: Incorporating error handling within the methods—for instance, notifying users of any mistakes when they enter an invalid book ID or member ID, rather than allowing the program to crash.
 TODO: minor issues with variable naming inconsistencies
 TODO: areas where modularity could be enhanced
+
+Changes made so far
+
+Consolidated Employee and Member classes into User class file
+Consolidate Book and Magazine classes into LibraryItem class file
+Remove FetchId interface from User.java
+Add id variables to User and have Member and Employee override getId() methods
