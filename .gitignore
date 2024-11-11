@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/copyright/ALMS_SOLID.xml
+/.idea/scopes/ALMS_SOLID.xml
+/myLibrary.db
+/myLibraryHistory.db
