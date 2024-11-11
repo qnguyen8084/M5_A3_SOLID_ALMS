@@ -1,10 +1,10 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBManager.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
@@ -68,23 +68,6 @@ public class DBManager implements DBOperations {
         return DriverManager.getConnection(URL);
     }
 
-    private static Connection overriddenConnection;
-
-    public static void overrideConnection(Connection connection) {
-        overriddenConnection = connection;
-    }
-
-    public static void restoreDefaultConnection() {
-        overriddenConnection = null;
-    }
-
-    public static Connection getConnection() throws SQLException {
-        if (overriddenConnection != null) {
-            return overriddenConnection;
-        }
-        return DriverManager.getConnection(URL);
-    }
-
     // Search function to search.
     @Override
     public void search(String table, String searchField, String searchString) {
@@ -103,7 +86,7 @@ public class DBManager implements DBOperations {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 

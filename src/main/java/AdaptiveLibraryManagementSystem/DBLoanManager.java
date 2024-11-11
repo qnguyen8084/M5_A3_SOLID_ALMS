@@ -1,10 +1,10 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBLoanManager.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
@@ -14,8 +14,12 @@ import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
-public class DBLoanManager implements Transactions<Loan> {
+public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
+    private final Logger logger;
 
+    public DBLoanManager(Logger logger) {
+        this.logger = logger;
+    }
     // Method to handle book borrowing process
     public void borrowBook(Loan loan) {
         // Check if the book is available before allowing it to be borrowed
@@ -88,7 +92,7 @@ public class DBLoanManager implements Transactions<Loan> {
         for (Integer s : Arrays.asList(availability, bookId)) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        DBHistoryLogger.logTransaction(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     // Method to add a loan record to the database
@@ -107,7 +111,7 @@ public class DBLoanManager implements Transactions<Loan> {
         for (Integer s : Arrays.asList(loan.getMemberId(), loan.getBookId())) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        DBHistoryLogger.logTransaction(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     // Method to remove a loan record from the database
@@ -125,7 +129,7 @@ public class DBLoanManager implements Transactions<Loan> {
         for (Integer s : Arrays.asList(memberId, bookId)) {
             sql = sql.replaceFirst("\\?", String.valueOf(s));
         }
-        DBHistoryLogger.logTransaction(sql); // Log the transaction
+        logger.logEvent(sql); // Log the transaction
     }
 
     @Override
@@ -151,7 +155,4 @@ public class DBLoanManager implements Transactions<Loan> {
         }
     }
 
-    @Override
-    public void remove(int bookId) {
-    }
 }

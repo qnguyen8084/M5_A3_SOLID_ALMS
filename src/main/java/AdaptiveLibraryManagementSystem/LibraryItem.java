@@ -1,10 +1,10 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * LibraryItem.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
@@ -14,9 +14,6 @@ package AdaptiveLibraryManagementSystem;
 public abstract class LibraryItem {
     private final String title; // Title of the library item (book, magazine, etc.)
     private final String itemType; // Type of the item (e.g., book, magazine)
-    protected static final String BOOK = "book"; // Constant for the item type "book"
-    protected static final String MAGAZINE = "magazine"; // Constant for the item type "magazine"
-
     private boolean available = true; // Availability status of the item (true = available, false = unavailable)
 
     // Constructor for a library item with the item type and title. Default availability is true.
@@ -61,13 +58,13 @@ class Book extends LibraryItem implements LibraryItemInterface {
 
     // Constructor for a book with title and author. The book is available by default.
     public Book(String title, String author) {
-        super(BOOK, title);
+        super("book", title);
         this.author = author;
     }
 
     // Constructor for a book with ID, title, author, and availability status.
     public Book(int bookId, String title, String author, boolean isAvailable) {
-        super(BOOK, title, isAvailable);
+        super("book", title, isAvailable);
         this.bookId = bookId;
         this.author = author;
     }
@@ -92,13 +89,13 @@ class Magazine extends LibraryItem implements LibraryItemInterface {
 
     // Constructor for a magazine with title and journalist. The magazine is available by default.
     public Magazine(String title, String journalist) {
-        super(MAGAZINE, title);
+        super("magazine", title);
         this.journalist = journalist;
     }
 
     // Constructor for a magazine with ID, title, journalist, and availability status.
     public Magazine(int magazineId, String title, String journalist, boolean isAvailable) {
-        super(MAGAZINE, title, isAvailable);
+        super("magazine", title, isAvailable);
         this.magazineId = magazineId;
         this.journalist = journalist;
     }

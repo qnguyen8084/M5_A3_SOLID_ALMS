@@ -1,12 +1,10 @@
 package AdaptiveLibraryManagementSystem;
 
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.core.SubstringMatcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.ByteArrayOutputStream;
@@ -16,9 +14,9 @@ import java.util.Random;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-class DBUserManagerTest {
-
-    DBUserManager dbUserManager = new DBUserManager();
+class DBMemberManagerTest {
+    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBMemberManager dbMemberManager = new DBMemberManager(historyLogger);
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);
     PrintStream originalOutStream = System.out;
@@ -40,8 +38,8 @@ class DBUserManagerTest {
     @Test
     void addTest() {
         Member testMember = new Member(memberName);
-        dbUserManager.add(testMember);
-        dbUserManager.search(memberName);
+        dbMemberManager.add(testMember);
+        dbMemberManager.search(memberName);
         System.out.println(outStream.toString());
         MatcherAssert.assertThat(outStream.toString(), containsString(memberName));
     }
@@ -50,15 +48,15 @@ class DBUserManagerTest {
     void removeTest() {
         String entryId = "";
         Member testMember = new Member(memberName);
-        dbUserManager.add(testMember);
-        dbUserManager.search(memberName);
+        dbMemberManager.add(testMember);
+        dbMemberManager.search(memberName);
         Pattern p = Pattern.compile("id:.(\\d+).");
         Matcher m = p.matcher(outStream.toString());
         if(m.find()) {
             entryId = m.group(1);
         }
-        dbUserManager.remove(Integer.parseInt(entryId));
-        dbUserManager.list();
+        dbMemberManager.remove(Integer.parseInt(entryId));
+        dbMemberManager.list();
         assertFalse(outStream.toString().contains(STR."id. \{m.group(1)}"));
         // additional assertions or verifications here
     }
@@ -66,16 +64,16 @@ class DBUserManagerTest {
     @Test
     void searchTest() {
         Member testMember = new Member(memberName);
-        dbUserManager.add(testMember);
-        dbUserManager.search(memberName);
+        dbMemberManager.add(testMember);
+        dbMemberManager.search(memberName);
         MatcherAssert.assertThat(outStream.toString(), containsString(memberName));
     }
 
     @Test
     void listTest() {
         Member testMember = new Member(memberName);
-        dbUserManager.add(testMember);
-        dbUserManager.list();
+        dbMemberManager.add(testMember);
+        dbMemberManager.list();
         MatcherAssert.assertThat(outStream.toString(), containsString(memberName));
     }
 }

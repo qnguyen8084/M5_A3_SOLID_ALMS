@@ -29,10 +29,10 @@ composition over inheritance
 
 Liskov substitution principle
 Rule broken if new subclass requires changes to any client of the base class or interface
-If no changes to interface there should ne no need to change any existing code
+If no changes to interface there should be no need to change any existing code
 LSP enforces SRP and OCP
 *If S is subT of T, then obj of type T may be replaced with object of type S*
-Base type: type(T) the clients have reference to. Clients call various mehthods and subtype of T
+Base type: type(T) the clients have reference to. Clients call various methods and subtype of T
 may override these methods if specialization needed
 Subtype: Client should not know specifics about subtype and should behave the same no matter what
 subtype instance that is given.
@@ -46,7 +46,32 @@ LSP rules
 
 Golden master test
 
-TODO: Add error handling and consistency in user prompts (Slighlty detracts from overall quality)
+TODO: Add error handling and consistency in user prompts (Slightly detracts from overall quality)
 TODO: Incorporating error handling within the methods—for instance, notifying users of any mistakes when they enter an invalid book ID or member ID, rather than allowing the program to crash.
 TODO: minor issues with variable naming inconsistencies
 TODO: areas where modularity could be enhanced
+
+Changes made so far
+
+Consolidated Employee and Member classes into User class file
+Consolidate Book and Magazine classes into LibraryItem class file
+Remove FetchId interface from User.java
+Add id variables to User and have Member and Employee override getId() methods
+
+Separate database operations from business logic for SRP
+Broke down transactions interface into separate interfaces
+
+Updated Transactions.java by removing Transactions interface and update DBBookManager, DBLoanManager, and DBUserManager to implement separate interfaces.
+...implements Addable<T Obj>, Removable, Searchable, Listable
+
+Separate logger function from DBManager classes (Book, Loan, User)
+Update DBBookManager, DBLoanManager, and DBUserManager to use new logger interface by
+creating new logger object.
+
+Update constructors for DBBookManager, DBUserManager, and DBLoanManager to use dependency injection for DBHistoryLogger.
+
+Remove unused methods from DBManager.java
+
+Change DBBookManager to DBLibraryItemManager to allow extensibility for future LibraryItem classes
+
+Update variable Id to id in User.java, Update DBHistoryLogger:log to DBHistoryLogger:logEvent.

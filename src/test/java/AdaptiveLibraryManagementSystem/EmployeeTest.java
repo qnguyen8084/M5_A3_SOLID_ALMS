@@ -25,7 +25,7 @@ class EmployeeTest {
      */
     @Test
     void testEmployeeIdWithConstructor2() {
-        Employee employee = new Employee(10, "TestUser");  // Create an Employee with ID and name
+        Employee employee = new Employee("TestUser", 10);  // Create an Employee with ID and name
         assertEquals(10, employee.getId());  // Verify the ID is correctly set to 10
     }
 
@@ -44,7 +44,7 @@ class EmployeeTest {
      */
     @Test
     void testEmployeeNameWithConstructor2() {
-        Employee employee = new Employee(10, "TestUser1");  // Create an Employee with ID and name
+        Employee employee = new Employee("TestUser1", 10);  // Create an Employee with ID and name
         assertEquals("TestUser1", employee.getName());  // Verify the name is correctly set to "TestUser1"
     }
 }

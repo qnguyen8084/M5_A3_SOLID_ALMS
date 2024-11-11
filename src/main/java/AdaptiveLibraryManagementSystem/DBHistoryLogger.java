@@ -1,10 +1,10 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBHistoryLogger.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 
@@ -12,9 +12,14 @@ package AdaptiveLibraryManagementSystem;
 
 import java.sql.*;
 
-public class DBHistoryLogger {
+interface Logger {
+    void logEvent(String message);
+}
+
+public class DBHistoryLogger implements Logger{
 
     private static final String HISTORY_DB_URL = "jdbc:sqlite:myLibraryHistory.db";
+
     private static final String CREATE_TRANSACTION_HISTORY_TABLE = """
                     CREATE TABLE IF NOT EXISTS history(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,17 +45,6 @@ public class DBHistoryLogger {
         }
     }
 
-    public static void logTransaction(String query) {
-        String sql = "INSERT INTO history (operation) VALUES (?)";
-        try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, query);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public static void listHistory() {
         String sql = "SELECT * FROM history";
         try (Connection conn = connect();
@@ -65,4 +59,15 @@ public class DBHistoryLogger {
         }
     }
 
+    @Override
+    public void logEvent(String message) {
+        String sql = "INSERT INTO history (operation) VALUES (?)";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, message);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

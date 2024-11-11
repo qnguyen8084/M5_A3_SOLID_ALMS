@@ -1,9 +1,10 @@
 /*
  * Quy Nguyen
- * CSC635
- * Adaptive Library Management System
+ * CS635
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBConsoleAdapter.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
@@ -13,9 +14,10 @@ public class DBConsoleAdapter implements AdapterOperations, BookAdapterOperation
 
     // Instances of managers responsible for database operations
     DBManager dbManager = new DBManager();
-    DBBookManager bookManager = new DBBookManager();
-    DBUserManager userManager = new DBUserManager();
-    DBLoanManager loanManager = new DBLoanManager();
+    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBBookManager bookManager = new DBBookManager(historyLogger);
+    DBMemberManager memberManager = new DBMemberManager(historyLogger);
+    DBLoanManager loanManager = new DBLoanManager(historyLogger);
 
     // Method to add a book by passing its details to the DBBookManager
     @Override
@@ -38,19 +40,19 @@ public class DBConsoleAdapter implements AdapterOperations, BookAdapterOperation
     // Method to add a member by passing their details to the DBUserManager
     @Override
     public void addMember(Member member) {
-        userManager.add(member); // Call method to add the member
+        memberManager.add(member); // Call method to add the member
     }
 
     // Method to remove a member by their ID
     @Override
     public void removeMember(int memberId) {
-        userManager.remove(memberId); // Call method to remove member by ID
+        memberManager.remove(memberId); // Call method to remove member by ID
     }
 
     // Method to list all members in the library
     @Override
     public void listMembers() {
-        userManager.list(); // Call method to list all members
+        memberManager.list(); // Call method to list all members
     }
 
     // Method to allow a member to borrow a book

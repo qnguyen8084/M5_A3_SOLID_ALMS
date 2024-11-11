@@ -1,10 +1,10 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBBookManager.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
@@ -14,8 +14,12 @@ import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
-public class DBBookManager implements Transactions<Book> {
+public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
+    private final Logger logger;
 
+    public DBBookManager(Logger logger) {
+        this.logger = logger;
+    }
     // Method to add a new book to the database
     @Override
     public void add(Book book) {
@@ -34,23 +38,28 @@ public class DBBookManager implements Transactions<Book> {
         for (String s : Arrays.asList(book.getTitle(), book.getCreator())) {
             sql = sql.replaceFirst("\\?", s);
         }
-        DBHistoryLogger.logTransaction(sql); // Log the transaction with the updated SQL query
+        logger.logEvent(sql); // Log the transaction with the updated SQL query
     }
 
     // Method to remove a book from the database by its ID
     @Override
     public void remove(int bookId) {
         // SQL query for deleting a book from the books table by its ID
+        if (!entryExists(bookId)) {
+            System.out.println("Book with bookId " + bookId + " does not exist");
+            return;
+        }
         String sql = "DELETE FROM BOOKS WHERE ID = (?)";
         try (Connection conn = connect(); // Establish connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare the statement
             stmt.setInt(1, bookId); // Set the book ID parameter
-            stmt.executeUpdate(); // Execute the update to remove the book
+            stmt.executeUpdate();// Execute the update to remove the book
+            System.out.println("Book with bookId " + bookId + " has been removed");
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Handle any SQL exceptions
+            System.out.println("Item does not exist"); // Handle any SQL exceptions
         }
         // Log the transaction with the book ID replaced in the SQL query
-        DBHistoryLogger.logTransaction(sql.replaceFirst("\\?", String.valueOf(bookId)));
+        logger.logEvent(sql.replaceFirst("\\?", String.valueOf(bookId)));
     }
 
     // Method to list all books in the database
@@ -96,4 +105,19 @@ public class DBBookManager implements Transactions<Book> {
             System.out.println(e.getMessage()); // Handle any SQL exceptions
         }
     }
+
+    public boolean entryExists(int bookId) {
+        String sql = "SELECT * FROM books WHERE ID = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, bookId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

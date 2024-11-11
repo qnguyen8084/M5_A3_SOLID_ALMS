@@ -18,8 +18,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DBBookManagerTest {
-
-    DBBookManager dbBookManager = new DBBookManager();
+    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBBookManager dbBookManager = new DBBookManager(historyLogger);
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);
     PrintStream originalOutStream = System.out;
