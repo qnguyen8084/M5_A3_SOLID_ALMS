@@ -57,3 +57,6 @@ Consolidated Employee and Member classes into User class file
 Consolidate Book and Magazine classes into LibraryItem class file
 Remove FetchId interface from User.java
 Add id variables to User and have Member and Employee override getId() methods
+
+Separate database operations from business logic for SRP
+Broke down transactions interface into seperate interfaces
