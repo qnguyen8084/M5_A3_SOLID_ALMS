@@ -86,7 +86,7 @@ public class DBManager implements DBOperations {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 

@@ -17,9 +17,9 @@ public abstract class User {
         this.name = name;
     }
 
-    public User(String name, int Id) {
+    public User(String name, int id) {
         this.name = name;
-        this.id = Id;
+        this.id = id;
     }
 
     public String getName() {
