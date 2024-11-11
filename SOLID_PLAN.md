@@ -59,4 +59,11 @@ Remove FetchId interface from User.java
 Add id variables to User and have Member and Employee override getId() methods
 
 Separate database operations from business logic for SRP
-Broke down transactions interface into seperate interfaces
+Broke down transactions interface into separate interfaces
+
+Updated Transactions.java by removing Transactions interface and update DBBookManager, DBLoanManager, and DBUserManager to implement separate interfaces.
+...implements Addable<T Obj>, Removable, Searchable, Listable
+
+Separate logger function from DBManager classes (Book, Loan, User)
+Update DBBookManager, DBLoanManager, and DBUserManager to use new logger interface by
+creating new logger object.

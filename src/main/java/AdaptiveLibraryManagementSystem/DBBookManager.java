@@ -9,12 +9,15 @@
 
 package AdaptiveLibraryManagementSystem;
 
+import org.sqlite.core.DB;
+
 import java.sql.*;
 import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
 public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
+    private final Logger logger = new DBHistoryLogger();
 
     // Method to add a new book to the database
     @Override
@@ -34,7 +37,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
         for (String s : Arrays.asList(book.getTitle(), book.getCreator())) {
             sql = sql.replaceFirst("\\?", s);
         }
-        DBHistoryLogger.logTransaction(sql); // Log the transaction with the updated SQL query
+        logger.log(sql); // Log the transaction with the updated SQL query
     }
 
     // Method to remove a book from the database by its ID
@@ -50,7 +53,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
             System.out.println(e.getMessage()); // Handle any SQL exceptions
         }
         // Log the transaction with the book ID replaced in the SQL query
-        DBHistoryLogger.logTransaction(sql.replaceFirst("\\?", String.valueOf(bookId)));
+        logger.log(sql.replaceFirst("\\?", String.valueOf(bookId)));
     }
 
     // Method to list all books in the database

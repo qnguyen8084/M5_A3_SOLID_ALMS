@@ -12,7 +12,11 @@ package AdaptiveLibraryManagementSystem;
 
 import java.sql.*;
 
-public class DBHistoryLogger {
+interface Logger {
+    void log(String message);
+}
+
+public class DBHistoryLogger implements Logger{
 
     private static final String HISTORY_DB_URL = "jdbc:sqlite:myLibraryHistory.db";
     private static final String CREATE_TRANSACTION_HISTORY_TABLE = """
@@ -65,4 +69,15 @@ public class DBHistoryLogger {
         }
     }
 
+    @Override
+    public void log(String message) {
+        String sql = "INSERT INTO history (operation) VALUES (?)";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, message);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
