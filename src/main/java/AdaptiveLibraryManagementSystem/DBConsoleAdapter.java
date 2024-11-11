@@ -1,9 +1,10 @@
 /*
  * Quy Nguyen
- * CSC635
- * Adaptive Library Management System
+ * CS635
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * DBConsoleAdapter.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;

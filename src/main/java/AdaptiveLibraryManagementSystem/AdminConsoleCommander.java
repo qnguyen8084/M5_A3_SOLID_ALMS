@@ -1,15 +1,18 @@
 /*
  * Quy Nguyen
- * Dhruv Shah
  * CS635
- * Adaptive Library Management System
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * AdminConsoleCommander.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  This is the AdminCommander that acts an interface between the user and the Adaptive Library Management
@@ -17,59 +20,37 @@ import org.jetbrains.annotations.NotNull;
  the adminInterface.
  */
 
+interface Command {
+    void execute();
+}
+
 public class AdminConsoleCommander {
-
-    // This instantiates an AdministratorInterface class object
+    private final Map<String, Command> commandMap = new HashMap<>();
     private final AdministratorInterface adminInterface = new AdministratorInterface();
-
     // This class is instantiated the constructor will begin the case statement.
-    public AdminConsoleCommander(String command) {
-        execute(command);
+    public AdminConsoleCommander() {
+        commandMap.put("addBook", adminInterface::addBook);
+        commandMap.put("removeBook", adminInterface::removeBook);
+        commandMap.put("listBooks", adminInterface::listBooks);
+        commandMap.put("addMember", adminInterface::addMember);
+        commandMap.put("removeMember", adminInterface::removeMember);
+        commandMap.put("listMembers", adminInterface::listMembers);
+        commandMap.put("borrowBook", adminInterface::borrowBook);
+        commandMap.put("returnBook", adminInterface::returnBook);
+        commandMap.put("listLoans", adminInterface::listLoans);
+        commandMap.put("search", adminInterface::search);
+        commandMap.put("listHistory", adminInterface::listHistory);
+        commandMap.put("exit", () -> System.exit(0));
     }
 
     // This case statement will be where the application logic makes the decision on which request to send
     // to or call from adminInterface. Case statement cases are pretty self-explanatory.
-    private void execute(@NotNull String command) {
-        switch (command) {
-            case "addBook":
-                adminInterface.addBook();
-                break;
-            case "removeBook":
-                adminInterface.removeBook();
-                break;
-            case "listBooks":
-                adminInterface.listBooks();
-                break;
-            case "addMember":
-                adminInterface.addMember();
-                break;
-            case "removeMember":
-                adminInterface.removeMember();
-                break;
-            case "listMembers":
-                adminInterface.listMembers();
-                break;
-            case "borrowBook":
-                adminInterface.borrowBook();
-                break;
-            case "returnBook":
-                adminInterface.returnBook();
-                break;
-            case "listLoans":
-                adminInterface.listLoans();
-                break;
-            case "search":
-                adminInterface.search();
-                break;
-            case "listHistory":
-                adminInterface.listHistory();
-                break;
-            case "exit":
-                System.out.println("Thank you for using Adaptive Library Management System!");
-                System.exit(0);
-            default:
-                System.out.println("Unknown command.");
-                break;
+    public void execute(@NotNull String command) {
+        Command cmd = commandMap.get(command);
+        if (cmd != null) {
+            cmd.execute();
+        } else {
+            System.out.println("Unknown command.");
         }
     }
 
