@@ -17,8 +17,11 @@ import java.util.Arrays;
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
 public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
-    private final Logger logger = new DBHistoryLogger();
+    private final Logger logger;
 
+    public DBBookManager(Logger logger) {
+        this.logger = logger;
+    }
     // Method to add a new book to the database
     @Override
     public void add(Book book) {

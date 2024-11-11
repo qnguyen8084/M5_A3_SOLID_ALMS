@@ -44,17 +44,6 @@ public class DBHistoryLogger implements Logger{
         }
     }
 
-    public static void logTransaction(String query) {
-        String sql = "INSERT INTO history (operation) VALUES (?)";
-        try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, query);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public static void listHistory() {
         String sql = "SELECT * FROM history";
         try (Connection conn = connect();

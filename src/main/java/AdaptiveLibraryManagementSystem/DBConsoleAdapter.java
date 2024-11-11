@@ -13,9 +13,10 @@ public class DBConsoleAdapter implements AdapterOperations, BookAdapterOperation
 
     // Instances of managers responsible for database operations
     DBManager dbManager = new DBManager();
-    DBBookManager bookManager = new DBBookManager();
-    DBUserManager userManager = new DBUserManager();
-    DBLoanManager loanManager = new DBLoanManager();
+    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBBookManager bookManager = new DBBookManager(historyLogger);
+    DBUserManager userManager = new DBUserManager(historyLogger);
+    DBLoanManager loanManager = new DBLoanManager(historyLogger);
 
     // Method to add a book by passing its details to the DBBookManager
     @Override

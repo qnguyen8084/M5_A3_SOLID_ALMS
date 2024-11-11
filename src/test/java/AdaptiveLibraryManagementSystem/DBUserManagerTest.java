@@ -17,8 +17,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 class DBUserManagerTest {
-
-    DBUserManager dbUserManager = new DBUserManager();
+    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBUserManager dbUserManager = new DBUserManager(historyLogger);
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);
     PrintStream originalOutStream = System.out;

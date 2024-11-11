@@ -19,7 +19,11 @@ import static AdaptiveLibraryManagementSystem.DBManager.connect;
  * removing, and listing members.
  */
 public class DBUserManager implements Addable<Member>, Removable, Searchable, Listable  {
-    private final Logger logger = new DBHistoryLogger();
+    private final Logger logger;
+
+    public DBUserManager(Logger logger) {
+        this.logger = logger;
+    }
     /*
      * Adds a new member to the members table in the database.
      * 

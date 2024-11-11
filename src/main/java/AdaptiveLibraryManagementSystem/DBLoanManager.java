@@ -15,8 +15,11 @@ import java.util.Arrays;
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
 public class DBLoanManager implements Addable<Loan>, Removable, Searchable, Listable {
-    private final Logger logger = new DBHistoryLogger();
+    private final Logger logger;
 
+    public DBLoanManager(Logger logger) {
+        this.logger = logger;
+    }
     // Method to handle book borrowing process
     public void borrowBook(Loan loan) {
         // Check if the book is available before allowing it to be borrowed
