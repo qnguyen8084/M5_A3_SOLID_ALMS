@@ -45,13 +45,18 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
     @Override
     public void remove(int bookId) {
         // SQL query for deleting a book from the books table by its ID
+        if (!entryExists(bookId)) {
+            System.out.println("Book with bookId " + bookId + " does not exist");
+            return;
+        }
         String sql = "DELETE FROM BOOKS WHERE ID = (?)";
         try (Connection conn = connect(); // Establish connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare the statement
             stmt.setInt(1, bookId); // Set the book ID parameter
-            stmt.executeUpdate(); // Execute the update to remove the book
+            stmt.executeUpdate();// Execute the update to remove the book
+            System.out.println("Book with bookId " + bookId + " has been removed");
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Handle any SQL exceptions
+            System.out.println("Item does not exist"); // Handle any SQL exceptions
         }
         // Log the transaction with the book ID replaced in the SQL query
         logger.logEvent(sql.replaceFirst("\\?", String.valueOf(bookId)));
@@ -100,4 +105,19 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
             System.out.println(e.getMessage()); // Handle any SQL exceptions
         }
     }
+
+    public boolean entryExists(int bookId) {
+        String sql = "SELECT * FROM books WHERE ID = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, bookId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

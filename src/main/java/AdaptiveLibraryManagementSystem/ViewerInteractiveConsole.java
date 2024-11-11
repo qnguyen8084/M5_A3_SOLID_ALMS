@@ -22,9 +22,9 @@ public class ViewerInteractiveConsole implements ViewerConsole {
         adminConsole();
     }
 
+    // This constructor is used for testing purposes
     public ViewerInteractiveConsole(int test) {
         this.commander = new AdminConsoleCommander();
-        return;
     }
 
     @Override
