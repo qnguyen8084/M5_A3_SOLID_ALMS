@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
-public class DBBookManager implements Transactions<Book> {
+public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
 
     // Method to add a new book to the database
     @Override

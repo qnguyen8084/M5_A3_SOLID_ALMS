@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
-public class DBLoanManager implements Transactions<Loan> {
+public class DBLoanManager implements Addable<Loan>, Removable, Searchable, Listable {
 
     // Method to handle book borrowing process
     public void borrowBook(Loan loan) {

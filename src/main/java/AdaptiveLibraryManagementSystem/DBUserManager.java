@@ -18,7 +18,7 @@ import static AdaptiveLibraryManagementSystem.DBManager.connect;
  * manages the database operations for library members, such as adding,
  * removing, and listing members.
  */
-public class DBUserManager implements Transactions<Member> {
+public class DBUserManager implements Addable<Member>, Removable, Searchable, Listable  {
 
     /*
      * Adds a new member to the members table in the database.
