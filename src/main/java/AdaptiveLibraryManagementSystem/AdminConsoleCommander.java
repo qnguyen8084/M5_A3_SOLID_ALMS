@@ -16,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
  System. It is responsible for evaluating the command input to decide what request to send to
  the adminInterface.
  */
+
+// TODO: Decorator to add commands
 public class AdminConsoleCommander {
 
     // This instantiates an AdministratorInterface class object
