@@ -1,5 +1,5 @@
 /*
- * Quy Nguyen
+ * Quy Nguyen - Dhruv Shah
  * CS635
  * M5 Assignment: Assignment 3: SOLID Principle Application
  * Adaptive Library Management System - SOLID Edition
@@ -26,7 +26,6 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
             return;
         }
         if (isBookAvailable(loan.getBookId())) {
-            setBookAvailability(0, loan.getBookId());
             add(loan);
         } else {
             System.out.println("Book is not available!");
@@ -35,7 +34,6 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
 
     // Method to handle book return process
     public void returnBook(int memberId, int bookId) {
-        setBookAvailability(1, bookId);
         removeLoan(bookId, memberId);
     }
 
@@ -96,6 +94,7 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
             System.out.println("Member or book does not exist");
             return;
         }
+        setBookAvailability(0, loan.getBookId());
         try (Connection conn = dbConnection.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loan.getMemberId()); // Set the member ID
@@ -112,6 +111,7 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
     // Method to remove a loan record from the database
     public void removeLoan(int bookId, int memberId) {
         // Add logic to check if there is loan that has includes both bookId and memberId
+        setBookAvailability(1, bookId);
         String sql = "DELETE FROM loans WHERE (memberId, bookId) = (?, ?)";
         try (Connection conn = dbConnection.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
