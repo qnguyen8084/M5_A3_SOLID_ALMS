@@ -12,7 +12,7 @@ package AdaptiveLibraryManagementSystem;
 import java.sql.*;
 
 // Definition of DBManager
-public class DBManager implements DBOperations {
+public class DBManager implements SearchOperation {
     // Declare and initialize private static final String URL with location of myLibrary.db
     private static final String URL = "jdbc:sqlite:myLibrary.db";
 

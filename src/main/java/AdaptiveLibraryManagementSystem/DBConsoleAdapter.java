@@ -13,17 +13,17 @@ public class DBConsoleAdapter {
     private final BookOperations bookOperations;
     private final MemberOperations memberOperations;
     private final LoanOperations loanOperations;
-    private final HistoryOperations historyOperations;
-    private final SearchOperations searchOperations;
+    private final HistoryOperation historyOperation;
+    private final SearchOperation searchOperation;
 
     public DBConsoleAdapter(BookOperations bookOperations, MemberOperations memberOperations,
-                            LoanOperations loanOperations, HistoryOperations historyOperations,
-                            SearchOperations searchOperations) {
+                            LoanOperations loanOperations, HistoryOperation historyOperation,
+                            SearchOperation searchOperation) {
         this.bookOperations = bookOperations;
         this.memberOperations = memberOperations;
         this.loanOperations = loanOperations;
-        this.historyOperations = historyOperations;
-        this.searchOperations = searchOperations;
+        this.historyOperation = historyOperation;
+        this.searchOperation = searchOperation;
     }
 
     public void addBook(Book book) {
@@ -63,10 +63,10 @@ public class DBConsoleAdapter {
     }
 
     public void search(String table, String searchField, String searchString) {
-        searchOperations.search(table, searchField, searchString);
+        searchOperation.search(table, searchField, searchString);
     }
 
     public void listHistory() {
-        historyOperations.listHistory();
+        historyOperation.listHistory();
     }
 }

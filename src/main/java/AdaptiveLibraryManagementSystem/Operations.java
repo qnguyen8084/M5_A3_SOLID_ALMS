@@ -30,10 +30,10 @@ interface LoanOperations {
     void listLoans(); // Method to list all current loans.
 }
 
-interface HistoryOperations {
+interface HistoryOperation {
     void listHistory();
 }
 
-interface SearchOperations {
+interface SearchOperation {
     void search(String table, String searchField, String searchString);
 }

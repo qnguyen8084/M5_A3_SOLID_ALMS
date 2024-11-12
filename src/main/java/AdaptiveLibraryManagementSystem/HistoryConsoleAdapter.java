@@ -9,7 +9,7 @@
 
 package AdaptiveLibraryManagementSystem;
 
-public class HistoryConsoleAdapter implements HistoryOperations {
+public class HistoryConsoleAdapter implements HistoryOperation {
     @Override
     public void listHistory() {
         DBHistoryLogger.listHistory();

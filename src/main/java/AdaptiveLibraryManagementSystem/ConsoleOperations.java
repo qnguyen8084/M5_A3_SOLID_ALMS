@@ -30,10 +30,10 @@ interface ConsoleLoanOperations {
     void listLoans(); // Method to list all loans via console.
 }
 
-interface ConsoleSearchOperations {
+interface ConsoleSearchOperation {
     void search(); // Method to search for a specific item in the database.
 }
 
-interface ConsoleHistoryOperations {
+interface ConsoleHistoryOperation {
     void listHistory(); // Method to list the transaction history.
 }

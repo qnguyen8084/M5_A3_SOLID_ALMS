@@ -12,10 +12,11 @@ package AdaptiveLibraryManagementSystem;
 import java.util.Scanner;
 
 public class AdministratorInterface implements ConsoleBookOperations, ConsoleMemberOperations, ConsoleLoanOperations,
-        ConsoleHistoryOperations, ConsoleSearchOperations {
+        ConsoleHistoryOperation, ConsoleSearchOperation {
 
     DBHistoryLogger logger = new DBHistoryLogger();
     // Adapter for database operations
+    // Added use of dependency injection
     DBConsoleAdapter adaptor = new DBConsoleAdapter(
             new BookConsoleAdapter(new DBBookManager(logger)),
             new MemberConsoleAdapter(new DBMemberManager(logger)),
@@ -78,9 +79,9 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
     @Override
     public void borrowBook() {
         int bookId;
-        System.out.print("Enter memberId of patron: ");
+        System.out.print("Enter memberId of borrower: ");
         int memberId = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter book ID to checkout: ");
+        System.out.print("Enter bookID to loan: ");
         bookId = Integer.parseInt(scanner.nextLine());
         Loan loan = new Loan(memberId, bookId);
         adaptor.borrowBook(loan); // Borrow the book using the adapter
@@ -91,9 +92,9 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
     public void returnBook() {
         int bookId;
         int memberId;
-        System.out.print("Enter memberID of patron: ");
+        System.out.print("Enter memberID of returner: ");
         memberId = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter book ID to return: ");
+        System.out.print("Enter bookID to be return: ");
         bookId = Integer.parseInt(scanner.nextLine());
         adaptor.returnBook(memberId, bookId); // Return the book using the adapter
     }

@@ -9,7 +9,7 @@
 
 package AdaptiveLibraryManagementSystem;
 
-public class SearchConsoleAdapter implements SearchOperations {
+public class SearchConsoleAdapter implements SearchOperation {
     private final DBManager dbManager;
 
     public SearchConsoleAdapter(DBManager dbManager) {
