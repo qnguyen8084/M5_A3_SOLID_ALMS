@@ -11,11 +11,18 @@ package AdaptiveLibraryManagementSystem;
 
 import java.util.Scanner;
 
-public class AdministratorInterface implements ConsoleOperations, ConsoleBookOperations,
-        ConsoleMemberOperations, ConsoleLoanOperations {
+public class AdministratorInterface implements ConsoleBookOperations, ConsoleMemberOperations, ConsoleLoanOperations,
+        ConsoleHistoryOperations, ConsoleSearchOperations {
 
+    DBHistoryLogger logger = new DBHistoryLogger();
     // Adapter for database operations
-    DBConsoleAdapter adaptor = new DBConsoleAdapter();
+    DBConsoleAdapter adaptor = new DBConsoleAdapter(
+            new BookConsoleAdapter(new DBBookManager(logger)),
+            new MemberConsoleAdapter(new DBMemberManager(logger)),
+            new LoanConsoleAdapter(new DBLoanManager(logger)),
+            new HistoryConsoleAdapter(),
+            new SearchConsoleAdapter(new DBManager())
+    );
     // Scanner for user input from the console
     Scanner scanner = new Scanner(System.in);
 
