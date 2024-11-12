@@ -1,9 +1,9 @@
 /*
- * Quy Nguyen
+ * Quy Nguyen - Dhruv Shah
  * CS635
  * M5 Assignment: Assignment 3: SOLID Principle Application
  * Adaptive Library Management System - SOLID Edition
- * DBUserManager.java
+ * DBMemberManager.java
  * Nov 11, 2024
  */
 

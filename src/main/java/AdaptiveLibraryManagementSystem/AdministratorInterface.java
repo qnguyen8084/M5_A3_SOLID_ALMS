@@ -1,10 +1,10 @@
 /*
- * Quy Nguyen
- * Dhruv Shah
- * CSC635
- * Adaptive Library Management System
+ * Quy Nguyen - Dhruv Shah
+ * CS635
+ * M5 Assignment: Assignment 3: SOLID Principle Application
+ * Adaptive Library Management System - SOLID Edition
  * AdministratorInterface.java
- * Sun, Sep 29 2024
+ * Nov 11, 2024
  */
 
 package AdaptiveLibraryManagementSystem;
