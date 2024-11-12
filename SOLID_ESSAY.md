@@ -55,8 +55,8 @@ These interfaces provide abstractions that are implemented concrete classes. The
 decoupled code and allows for easier testing and maintenance.
 
 Dependency injection is used in several classes to inject dependencies. You can see that in DBBookManager,
-DBUserManager, and DBLoanManager classes were DBHistoryLogger is injected into the constructor promoting
-testability and flexibility.
+DBUserManager, and DBLoanManager classes where DBHistoryLogger and DBConnection is injected into the constructor promoting
+testability and adaptability.
 Dependency injection is also used in DBConsoleAdapter where BookOperations, MemberOperations, LoanOperations,
 HistoryOperations, and SearchOperations are injected into the constructor adhering to the Dependency Inversion
 Principle.
@@ -73,4 +73,9 @@ make changes to the History logger if you don't like the current implementation 
 dependency inversion principle.
 
 The entirety of the project was not refactored completely to adhere to SOLID principles. I think I may have
-already breached the threshold of complexity with some portions of the code. 
+already breached the threshold of complexity with some portions of the code. I think the last part I may be missing is
+completely separating the logic between the database and console operations.
+
+Overall, the project functions like it did before with the added search functionality to search member by name, book
+by title, loan by loan id, improved error handling for invalid user input, more modularized, more decoupled, and more
+adaptive code while also adhering to SOLID design principles.
