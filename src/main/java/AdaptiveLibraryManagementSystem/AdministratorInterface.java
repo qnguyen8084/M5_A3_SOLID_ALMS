@@ -12,7 +12,7 @@ package AdaptiveLibraryManagementSystem;
 import java.util.Scanner;
 
 public class AdministratorInterface implements ConsoleOperations, ConsoleBookOperations,
-        ConsoleUserOperations, ConsoleLoanOperations {
+        ConsoleMemberOperations, ConsoleLoanOperations {
 
     // Adapter for database operations
     DBConsoleAdapter adaptor = new DBConsoleAdapter();

@@ -23,6 +23,10 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
     // Method to handle book borrowing process
     public void borrowBook(Loan loan) {
         // Check if the book is available before allowing it to be borrowed
+        if (!bookExists(loan.getBookId())) {
+            System.out.println("Book does not exist!");
+            return;
+        }
         if (isBookAvailable(loan.getBookId())) {
             // Set the book's availability to unavailable (0)
             setBookAvailability(0, loan.getBookId());
@@ -99,11 +103,18 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
     @Override
     public void add(Loan loan) {
         String sql = "INSERT INTO loans (memberId, bookId) VALUES (?, ?)";
+        if(memberExists(loan.getMemberId()) && bookExists(loan.getBookId())) {
+            System.out.println("Member and book exist");
+        } else {
+            System.out.println("Member or book does not exist");
+            return;
+        }
         try (Connection conn = DBManager.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, loan.getMemberId()); // Set the member ID
             stmt.setInt(2, loan.getBookId()); // Set the book ID
-            stmt.executeUpdate(); // Execute the insert
+            stmt.executeUpdate();
+            System.out.println("Loan added to table"); // Execute the insert
         } catch (SQLException e) {
             System.out.println(e.getMessage()); // Handle SQL exceptions
         }
@@ -116,6 +127,7 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
 
     // Method to remove a loan record from the database
     public void removeLoan(int bookId, int memberId) {
+        // Add logic to check if there is loan that has includes both bookId and memberId
         String sql = "DELETE FROM loans WHERE (memberId, bookId) = (?, ?)";
         try (Connection conn = DBManager.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -155,4 +167,31 @@ public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
         }
     }
 
+    public boolean bookExists(int bookId) {
+        String sql = "SELECT * FROM books WHERE ID = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, bookId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean memberExists(int memberId) {
+        String sql = "SELECT * FROM members WHERE ID = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, memberId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

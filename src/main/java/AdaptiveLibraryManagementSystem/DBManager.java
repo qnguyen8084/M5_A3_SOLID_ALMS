@@ -89,5 +89,4 @@ public class DBManager implements DBOperations {
             System.out.println(e.getMessage());
         }
     }
-
 }

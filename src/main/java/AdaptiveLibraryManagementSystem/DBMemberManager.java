@@ -89,18 +89,15 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
 
     @Override
     public void search(String searchString) {
-        String table = "members";
-        String searchField = "name";
+        String sql = "SELECT * FROM members WHERE name = ?";
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(
-                     STR."SELECT * FROM \{table} WHERE \{searchField} = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, searchString);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    // Assuming the structure of the table is unknown, let's print out all columns
                     int columnCount = rs.getMetaData().getColumnCount();
                     for (int i = 1; i <= columnCount; i++) {
-                        System.out.print(STR."\{rs.getMetaData().getColumnName(i)}: \{rs.getString(i)}\t");
+                        System.out.print(rs.getMetaData().getColumnName(i) + ": " + rs.getString(i) + "\t");
                     }
                     System.out.println();
                 }
@@ -109,6 +106,7 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
             throw new RuntimeException(e);
         }
     }
+
     public boolean entryExists(int memberId) {
         String sql = "SELECT * FROM members WHERE ID = ?";
         try (Connection conn = connect();
@@ -122,5 +120,4 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
             return false;
         }
     }
-
 }

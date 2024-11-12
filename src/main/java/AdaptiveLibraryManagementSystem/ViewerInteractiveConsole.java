@@ -32,9 +32,9 @@ public class ViewerInteractiveConsole implements ViewerConsole {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Please choose an option \n" +
-            "(addBook, removeBook, listBooks,\n" +
-            "addMember, removeMember, listMembers,\n" +
-            "borrowBook, returnBook, listLoans, \n" +
+            "(addBook, removeBook, listBooks, searchBooks\n" +
+            "addMember, removeMember, listMembers,searchMembers\n" +
+            "borrowBook, returnBook, listLoans, searchLoans\n" +
             "search, listHistory, exit): ");
             commander.execute(scanner.nextLine());
         }

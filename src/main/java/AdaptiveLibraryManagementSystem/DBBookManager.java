@@ -33,12 +33,8 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
         } catch (SQLException e) {
             System.out.println(e.getMessage()); // Handle any SQL exceptions
         }
-
-        // Replace placeholders in the SQL query with actual values for logging
-        for (String s : Arrays.asList(book.getTitle(), book.getCreator())) {
-            sql = sql.replaceFirst("\\?", s);
-        }
-        logger.logEvent(sql); // Log the transaction with the updated SQL query
+        // Log the transaction with the book's title and author replaced in the SQL query
+        logger.logEvent(sql.replaceFirst("\\?", book.getTitle()).replaceFirst("\\?", book.getCreator())); // Log the transaction with the updated SQL query
     }
 
     // Method to remove a book from the database by its ID
@@ -49,7 +45,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
             System.out.println("Book with bookId " + bookId + " does not exist");
             return;
         }
-        String sql = "DELETE FROM BOOKS WHERE ID = (?)";
+        String sql = "DELETE FROM books WHERE id = ?";
         try (Connection conn = connect(); // Establish connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare the statement
             stmt.setInt(1, bookId); // Set the book ID parameter
@@ -66,18 +62,15 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
 
     @Override
     public void search(String searchString) {
-        String table = "books";
-        String searchField = "title";
+        String sql = "SELECT * FROM books WHERE title = ?";
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(
-                     STR."SELECT * FROM \{table} WHERE \{searchField} = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, searchString);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    // Assuming the structure of the table is unknown, let's print out all columns
                     int columnCount = rs.getMetaData().getColumnCount();
                     for (int i = 1; i <= columnCount; i++) {
-                        System.out.print(STR."\{rs.getMetaData().getColumnName(i)}: \{rs.getString(i)}\t");
+                        System.out.print(rs.getMetaData().getColumnName(i) + ": " + rs.getString(i) + "\t");
                     }
                     System.out.println();
                 }
@@ -119,5 +112,4 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
             return false;
         }
     }
-
 }
