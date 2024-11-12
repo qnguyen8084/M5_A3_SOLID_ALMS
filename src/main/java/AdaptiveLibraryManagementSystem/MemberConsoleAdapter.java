@@ -30,4 +30,9 @@ public class MemberConsoleAdapter implements MemberOperations {
     public void listMembers() {
         memberManager.list();
     }
+
+    @Override
+    public void searchMember(String name) {
+        memberManager.search(name);
+    }
 }

@@ -30,4 +30,9 @@ public class BookConsoleAdapter implements BookOperations {
     public void listBooks() {
         bookManager.list();
     }
+
+    @Override
+    public void searchBook(String title) {
+        bookManager.search(title);
+    }
 }

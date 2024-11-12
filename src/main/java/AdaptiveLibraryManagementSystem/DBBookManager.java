@@ -60,11 +60,11 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
     // Method to list all books in the database
 
     @Override
-    public void search(String searchString) {
+    public void search(String title) {
         String sql = "SELECT * FROM books WHERE title = ?";
         try (Connection conn = dbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, searchString);
+            pstmt.setString(1, title);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     int columnCount = rs.getMetaData().getColumnCount();

@@ -55,6 +55,13 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
         adaptor.listBooks(); // List books using the adapter
     }
 
+    @Override
+    public void searchBook(){
+        System.out.print("Enter title of book to search: ");
+        String title = scanner.nextLine();
+        adaptor.searchBook(title);
+    }
+
     // Method to add a new member
     @Override
     public void addMember() {
@@ -76,6 +83,13 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
     @Override
     public void listMembers() {
         adaptor.listMembers(); // List members using the adapter
+    }
+
+    @Override
+    public void searchMember(){
+        System.out.print("Enter member name: ");
+        String name = scanner.nextLine();
+        adaptor.searchMember(name);
     }
 
     // Method to allow a member to borrow a book
@@ -106,6 +120,13 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
     @Override
     public void listLoans() {
         adaptor.listLoans(); // List loans using the adapter
+    }
+
+    @Override
+    public void searchLoan(){
+        System.out.print("Enter loan ID to search: ");
+        String id = scanner.nextLine();
+        adaptor.searchLoan(id);
     }
 
     // Method to list the loan history

@@ -32,12 +32,15 @@ public class AdminConsoleCommander {
         commandMap.put("addBook", adminInterface::addBook);
         commandMap.put("removeBook", adminInterface::removeBook);
         commandMap.put("listBooks", adminInterface::listBooks);
+        commandMap.put("searchBook", adminInterface::searchBook);
         commandMap.put("addMember", adminInterface::addMember);
         commandMap.put("removeMember", adminInterface::removeMember);
         commandMap.put("listMembers", adminInterface::listMembers);
+        commandMap.put("searchMember", adminInterface::searchMember);
         commandMap.put("borrowBook", adminInterface::borrowBook);
         commandMap.put("returnBook", adminInterface::returnBook);
         commandMap.put("listLoans", adminInterface::listLoans);
+        commandMap.put("searchLoan", adminInterface::searchLoan);
         commandMap.put("search", adminInterface::search);
         commandMap.put("listHistory", adminInterface::listHistory);
         commandMap.put("exit", () -> System.exit(0));

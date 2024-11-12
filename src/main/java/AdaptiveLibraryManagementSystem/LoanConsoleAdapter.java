@@ -30,4 +30,9 @@ public class LoanConsoleAdapter implements LoanOperations {
     public void listLoans() {
         loanManager.list();
     }
+
+    @Override
+    public void searchLoan(String id) {
+        loanManager.search(id);
+    }
 }

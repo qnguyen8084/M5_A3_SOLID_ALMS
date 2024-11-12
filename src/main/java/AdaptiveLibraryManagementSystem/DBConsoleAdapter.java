@@ -38,6 +38,10 @@ public class DBConsoleAdapter {
         bookOperations.listBooks();
     }
 
+    public void searchBook(String title) {
+        bookOperations.searchBook(title);
+    }
+
     public void addMember(Member member) {
         memberOperations.addMember(member);
     }
@@ -48,6 +52,10 @@ public class DBConsoleAdapter {
 
     public void listMembers() {
         memberOperations.listMembers();
+    }
+
+    public void searchMember(String name) {
+        memberOperations.searchMember(name);
     }
 
     public void borrowBook(Loan loan) {
@@ -62,6 +70,10 @@ public class DBConsoleAdapter {
         loanOperations.listLoans();
     }
 
+    public void searchLoan(String id) {
+        loanOperations.searchLoan(id);
+    }
+
     public void search(String table, String searchField, String searchString) {
         searchOperation.search(table, searchField, searchString);
     }
@@ -69,4 +81,5 @@ public class DBConsoleAdapter {
     public void listHistory() {
         historyOperation.listHistory();
     }
+
 }
