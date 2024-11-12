@@ -51,18 +51,16 @@ public class DBManager implements SearchOperation {
     // for persistent storage.
 
     public void initializeDatabase() {
+        executeUpdate(CREATE_BOOKS_TABLE);
+        executeUpdate(CREATE_MEMBERS_TABLE);
+        executeUpdate(CREATE_LOANS_TABLE);
+    }
 
-        // Initialize Connection conn object to be initialized with Connection object
-        // returned from DriverManager.getConnection(URL);
-        // Statements are passed to try because I learned somewhere this will also
-        // close conn connection after method is done with execution.
-        // This try block will create the tables in the database if they don't exist
+    private void executeUpdate(String sql) {
         try (Connection conn = dbConnection.connect();
              Statement stmt = conn.createStatement()) {
-            stmt.execute(CREATE_BOOKS_TABLE);
-            stmt.execute(CREATE_MEMBERS_TABLE);
-            stmt.execute(CREATE_LOANS_TABLE);
-        } catch (SQLException e) { // throws an exception if SQL exception is caught.
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
