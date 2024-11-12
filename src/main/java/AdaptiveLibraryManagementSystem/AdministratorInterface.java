@@ -9,12 +9,14 @@
 
 package AdaptiveLibraryManagementSystem;
 
+import org.sqlite.core.DB;
+
 import java.util.Scanner;
 
 public class AdministratorInterface implements ConsoleBookOperations, ConsoleMemberOperations, ConsoleLoanOperations,
         ConsoleHistoryOperation, ConsoleSearchOperation {
 
-    DBHistoryLogger logger = new DBHistoryLogger();
+    DBHistoryLogger logger = new DBHistoryLogger(new SQLiteHistoryConnection());
     DBConnection dbConnection = new SQLiteConnection();
     // Adapter for database operations
     // Added use of dependency injection
@@ -22,7 +24,7 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
             new BookConsoleAdapter(new DBBookManager(logger, dbConnection)),
             new MemberConsoleAdapter(new DBMemberManager(logger, dbConnection)),
             new LoanConsoleAdapter(new DBLoanManager(logger, dbConnection)),
-            new HistoryConsoleAdapter(),
+            new HistoryConsoleAdapter(logger),
             new SearchConsoleAdapter(new DBManager(dbConnection))
     );
     // Scanner for user input from the console

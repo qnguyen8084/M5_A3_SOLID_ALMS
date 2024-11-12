@@ -23,10 +23,10 @@ public class AdaptiveLibraryManagementSystem {
         // Created a constant String for welcome message to encourage with readability.
         String WELCOME_MESSAGE = "Welcome to Adaptive Library Management System!";
 
-        DBConnection dbConnection = new SQLiteConnection();
-        DBManager dbManager = new DBManager(dbConnection);
+        DBManager dbManager = new DBManager(new SQLiteConnection());
+        DBHistoryLogger dbHistoryLogger = new DBHistoryLogger(new SQLiteHistoryConnection());
         dbManager.initializeDatabase();
-        DBHistoryLogger.initializeDatabase();
+        dbHistoryLogger.initializeDatabase();
         // Welcome message
         printMessage(WELCOME_MESSAGE);
 

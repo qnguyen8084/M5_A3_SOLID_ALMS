@@ -12,10 +12,10 @@ package AdaptiveLibraryManagementSystem;
 import java.sql.*;
 
 public class DBLoanManager implements Addable<Loan>, Searchable, Listable {
-    private final Logger logger;
+    private final DBHistoryLogger logger;
     private final DBConnection dbConnection;
 
-    public DBLoanManager(Logger logger, DBConnection dbConnection) {
+    public DBLoanManager(DBHistoryLogger logger, DBConnection dbConnection) {
         this.logger = logger;;
         this.dbConnection = dbConnection;
     }

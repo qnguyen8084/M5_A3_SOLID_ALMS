@@ -17,10 +17,10 @@ import java.sql.*;
  * removing, and listing members.
  */
 public class DBMemberManager implements Addable<Member>, Removable, Searchable, Listable  {
-    private final Logger logger;
+    private final DBHistoryLogger logger;
     private final DBConnection dbConnection;
 
-    public DBMemberManager(Logger logger, DBConnection dbConnection) {
+    public DBMemberManager(DBHistoryLogger logger, DBConnection dbConnection) {
         this.logger = logger;;
         this.dbConnection = dbConnection;
     }

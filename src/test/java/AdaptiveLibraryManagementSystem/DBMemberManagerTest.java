@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 class DBMemberManagerTest {
     DBConnection dbConnection = new SQLiteConnection();
-    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBHistoryLogger historyLogger = new DBHistoryLogger(new SQLiteHistoryConnection());
     DBMemberManager dbMemberManager = new DBMemberManager(historyLogger, dbConnection);
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);

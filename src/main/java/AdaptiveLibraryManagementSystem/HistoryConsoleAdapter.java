@@ -10,8 +10,14 @@
 package AdaptiveLibraryManagementSystem;
 
 public class HistoryConsoleAdapter implements HistoryOperation {
+    private final DBHistoryLogger dbHistoryLogger;
+
+    public HistoryConsoleAdapter(DBHistoryLogger dbHistoryLogger) {
+        this.dbHistoryLogger = dbHistoryLogger;
+    }
+
     @Override
     public void listHistory() {
-        DBHistoryLogger.listHistory();
+        dbHistoryLogger.listHistory();
     }
 }

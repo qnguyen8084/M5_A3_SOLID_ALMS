@@ -12,10 +12,10 @@ package AdaptiveLibraryManagementSystem;
 import java.sql.*;
 
 public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
-    private final Logger logger;
+    private final DBHistoryLogger logger;
     private final DBConnection dbConnection;
 
-    public DBBookManager(Logger logger, DBConnection dbConnection) {
+    public DBBookManager(DBHistoryLogger logger, DBConnection dbConnection) {
         this.logger = logger;
         this.dbConnection = dbConnection;
     }

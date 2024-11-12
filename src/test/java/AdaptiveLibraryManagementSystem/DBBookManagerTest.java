@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DBBookManagerTest {
     DBConnection dbConnection = new SQLiteConnection();
-    DBHistoryLogger historyLogger = new DBHistoryLogger();
+    DBHistoryLogger historyLogger = new DBHistoryLogger(new SQLiteHistoryConnection());
     DBBookManager dbBookManager = new DBBookManager(historyLogger, dbConnection);
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);

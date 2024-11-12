@@ -17,27 +17,26 @@ interface Logger {
 }
 
 public class DBHistoryLogger implements Logger{
-
+    private final DBConnection dbConnection;
     private static final String HISTORY_DB_URL = "jdbc:sqlite:myLibraryHistory.db";
+
+    public DBHistoryLogger(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
 
     private static final String CREATE_TRANSACTION_HISTORY_TABLE = """
                     CREATE TABLE IF NOT EXISTS history(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     operation TEXT NOT NULL)""";
 
-
-    public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(HISTORY_DB_URL);
-    }
-
-    public static void initializeDatabase() {
+    public void initializeDatabase() {
 
         // Initialize Connection conn object to be initialized with Connection object
         // returned from DriverManager.getConnection(URL);
         // Statements are passed to try because I learned somewhere this will also
         // close conn connection after method is done with execution.
         // This try block will create the tables in the database if they don't exist
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              Statement stmt = conn.createStatement()) {
             stmt.execute(CREATE_TRANSACTION_HISTORY_TABLE);
         } catch (SQLException e) { // throws an exception if SQL exception is caught.
@@ -45,9 +44,9 @@ public class DBHistoryLogger implements Logger{
         }
     }
 
-    public static void listHistory() {
+    public void listHistory() {
         String sql = "SELECT * FROM history";
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -62,7 +61,7 @@ public class DBHistoryLogger implements Logger{
     @Override
     public void logEvent(String message) {
         String sql = "INSERT INTO history (operation) VALUES (?)";
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, message);
             stmt.executeUpdate();
