@@ -14,8 +14,11 @@ import java.sql.*;
 // Definition of DBManager
 public class DBManager implements SearchOperation {
     // Declare and initialize private static final String URL with location of myLibrary.db
-    private static final String URL = "jdbc:sqlite:myLibrary.db";
+    private final DBConnection dbConnection;
 
+    public DBManager(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
     // Initialize a String variable createBooksTable with an SQL string to create
     // a table named books with 4 columns; id, title, author, and isAvailable
     // if table does not exist
@@ -47,14 +50,14 @@ public class DBManager implements SearchOperation {
     // Definition of createTables method that creates 3 tables in our relational database
     // for persistent storage.
 
-    public static void initializeDatabase() {
+    public void initializeDatabase() {
 
         // Initialize Connection conn object to be initialized with Connection object
         // returned from DriverManager.getConnection(URL);
         // Statements are passed to try because I learned somewhere this will also
         // close conn connection after method is done with execution.
         // This try block will create the tables in the database if they don't exist
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              Statement stmt = conn.createStatement()) {
             stmt.execute(CREATE_BOOKS_TABLE);
             stmt.execute(CREATE_MEMBERS_TABLE);
@@ -64,14 +67,10 @@ public class DBManager implements SearchOperation {
         }
     }
 
-    public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL);
-    }
-
     // Search function to search.
     @Override
     public void search(String table, String searchField, String searchString) {
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(
                      STR."SELECT * FROM \{table} WHERE \{searchField} = ?")) {
             pstmt.setString(1, searchString);

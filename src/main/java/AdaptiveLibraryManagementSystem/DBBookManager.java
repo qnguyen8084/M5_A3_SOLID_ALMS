@@ -10,22 +10,21 @@
 package AdaptiveLibraryManagementSystem;
 
 import java.sql.*;
-import java.util.Arrays;
-
-import static AdaptiveLibraryManagementSystem.DBManager.connect;
 
 public class DBBookManager implements Addable<Book>, Removable, Searchable, Listable {
     private final Logger logger;
+    private final DBConnection dbConnection;
 
-    public DBBookManager(Logger logger) {
+    public DBBookManager(Logger logger, DBConnection dbConnection) {
         this.logger = logger;
+        this.dbConnection = dbConnection;
     }
     // Method to add a new book to the database
     @Override
     public void add(Book book) {
         // SQL query for inserting a book into the books table
         String sql = "INSERT INTO books (title, author) VALUES (?, ?)";
-        try (Connection conn = connect(); // Establish connection
+        try (Connection conn = dbConnection.connect(); // Establish connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare the statement
             stmt.setString(1, book.getTitle()); // Set the title parameter
             stmt.setString(2, book.getCreator()); // Set the author parameter
@@ -46,7 +45,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
             return;
         }
         String sql = "DELETE FROM books WHERE id = ?";
-        try (Connection conn = connect(); // Establish connection
+        try (Connection conn = dbConnection.connect(); // Establish connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare the statement
             stmt.setInt(1, bookId); // Set the book ID parameter
             stmt.executeUpdate();// Execute the update to remove the book
@@ -63,7 +62,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
     @Override
     public void search(String searchString) {
         String sql = "SELECT * FROM books WHERE title = ?";
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, searchString);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -84,7 +83,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
     public void list() {
         // SQL query for selecting all books from the books table
         String sql = "SELECT * FROM books";
-        try (Connection conn = connect(); // Establish connection
+        try (Connection conn = dbConnection.connect(); // Establish connection
              Statement stmt = conn.createStatement(); // Create a statement
              ResultSet rs = stmt.executeQuery(sql)) { // Execute the query and get the result set
             // Iterate through the result set and display each book's details
@@ -101,7 +100,7 @@ public class DBBookManager implements Addable<Book>, Removable, Searchable, List
 
     public boolean entryExists(int bookId) {
         String sql = "SELECT * FROM books WHERE ID = ?";
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, bookId);
             try (ResultSet rs = pstmt.executeQuery()) {

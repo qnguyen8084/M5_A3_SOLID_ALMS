@@ -15,14 +15,15 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
         ConsoleHistoryOperation, ConsoleSearchOperation {
 
     DBHistoryLogger logger = new DBHistoryLogger();
+    DBConnection dbConnection = new SQLiteConnection();
     // Adapter for database operations
     // Added use of dependency injection
     DBConsoleAdapter adaptor = new DBConsoleAdapter(
-            new BookConsoleAdapter(new DBBookManager(logger)),
-            new MemberConsoleAdapter(new DBMemberManager(logger)),
-            new LoanConsoleAdapter(new DBLoanManager(logger)),
+            new BookConsoleAdapter(new DBBookManager(logger, dbConnection)),
+            new MemberConsoleAdapter(new DBMemberManager(logger, dbConnection)),
+            new LoanConsoleAdapter(new DBLoanManager(logger, dbConnection)),
             new HistoryConsoleAdapter(),
-            new SearchConsoleAdapter(new DBManager())
+            new SearchConsoleAdapter(new DBManager(dbConnection))
     );
     // Scanner for user input from the console
     Scanner scanner = new Scanner(System.in);
