@@ -79,3 +79,13 @@ completely separating the logic between the database and console operations.
 Overall, the project functions like it did before with the added search functionality to search member by name, book
 by title, loan by loan id, improved error handling for invalid user input, more modularized, more decoupled, and more
 adaptive code while also adhering to SOLID design principles.
+
+<figure>
+<figcaption>SOLID Class Diagram</figcaption></figcaption>
+<img title="User Class Diagram" alt="Current Class Diagram" width="926" src="reportImages/solidClassDiagram.png">
+</figure>
+
+<figure>
+<figcaption>SOLID Code Coverage</figcaption></figcaption>
+<img title="User Class Diagram" alt="Current Class Diagram" width="926" src="reportImages/TestCoverageSOLID.png">
+</figure>
