@@ -19,21 +19,17 @@ public class AdaptiveLibraryManagementSystem {
     // It then instantiates an InteractiveConsole with new Interactive console to output prompts to the
     // user.
     public static void main(String[] args) {
-
-        // Created a constant String for welcome message to encourage with readability.
         String WELCOME_MESSAGE = "Welcome to Adaptive Library Management System!";
 
-        // Welcome message
+        DBManager dbManager = new DBManager(new SQLiteConnection());
+        DBHistoryLogger dbHistoryLogger = new DBHistoryLogger(new SQLiteHistoryConnection());
+        dbManager.initializeDatabase();
+        dbHistoryLogger.initializeDatabase();
         printMessage(WELCOME_MESSAGE);
 
-        // Initialize Database for persistent storage.
-        DBManager.initializeDatabase();
-        DBHistoryLogger.initializeDatabase();
-        // Start user interface, cli
         new ViewerInteractiveConsole();
     }
 
-    // Declared and defined printMessage function to help with readability.
     public static void printMessage(String message) {
         System.out.println(message);
     }

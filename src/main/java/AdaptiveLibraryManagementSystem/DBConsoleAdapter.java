@@ -9,79 +9,77 @@
 
 package AdaptiveLibraryManagementSystem;
 
-public class DBConsoleAdapter implements AdapterOperations, BookAdapterOperations,
-        UserAdapterOperations, LoanAdapterOperations {
+public class DBConsoleAdapter {
+    private final BookOperations bookOperations;
+    private final MemberOperations memberOperations;
+    private final LoanOperations loanOperations;
+    private final HistoryOperation historyOperation;
+    private final SearchOperation searchOperation;
 
-    // Instances of managers responsible for database operations
-    DBManager dbManager = new DBManager();
-    DBHistoryLogger historyLogger = new DBHistoryLogger();
-    DBBookManager bookManager = new DBBookManager(historyLogger);
-    DBMemberManager memberManager = new DBMemberManager(historyLogger);
-    DBLoanManager loanManager = new DBLoanManager(historyLogger);
+    public DBConsoleAdapter(BookOperations bookOperations, MemberOperations memberOperations,
+                            LoanOperations loanOperations, HistoryOperation historyOperation,
+                            SearchOperation searchOperation) {
+        this.bookOperations = bookOperations;
+        this.memberOperations = memberOperations;
+        this.loanOperations = loanOperations;
+        this.historyOperation = historyOperation;
+        this.searchOperation = searchOperation;
+    }
 
-    // Method to add a book by passing its details to the DBBookManager
-    @Override
     public void addBook(Book book) {
-        bookManager.add(book); // Call method to add book
+        bookOperations.addBook(book);
     }
 
-    // Method to remove a book by its ID
-    @Override
     public void removeBook(int bookId) {
-        bookManager.remove(bookId); // Call method to remove the book by ID
+        bookOperations.removeBook(bookId);
     }
 
-    // Method to list all books in the library
-    @Override
     public void listBooks() {
-        bookManager.list(); // Call method to list all books
+        bookOperations.listBooks();
     }
 
-    // Method to add a member by passing their details to the DBUserManager
-    @Override
+    public void searchBook(String title) {
+        bookOperations.searchBook(title);
+    }
+
     public void addMember(Member member) {
-        memberManager.add(member); // Call method to add the member
+        memberOperations.addMember(member);
     }
 
-    // Method to remove a member by their ID
-    @Override
     public void removeMember(int memberId) {
-        memberManager.remove(memberId); // Call method to remove member by ID
+        memberOperations.removeMember(memberId);
     }
 
-    // Method to list all members in the library
-    @Override
     public void listMembers() {
-        memberManager.list(); // Call method to list all members
+        memberOperations.listMembers();
     }
 
-    // Method to allow a member to borrow a book
-    @Override
+    public void searchMember(String name) {
+        memberOperations.searchMember(name);
+    }
+
     public void borrowBook(Loan loan) {
-        loanManager.borrowBook(loan); // Call method to record borrowing of a book
+        loanOperations.borrowBook(loan);
     }
 
-    // Method to allow a member to return a book
-    @Override
     public void returnBook(int memberId, int bookId) {
-        loanManager.returnBook(memberId, bookId); // Call method to record the return of a book
+        loanOperations.returnBook(memberId, bookId);
     }
 
-    // Method to list all loans in the library system
-    @Override
     public void listLoans() {
-        loanManager.list(); // Call method to list all loans
+        loanOperations.listLoans();
     }
 
-    // Method to search the database based on the provided parameters
-    @Override
+    public void searchLoan(String id) {
+        loanOperations.searchLoan(id);
+    }
+
     public void search(String table, String searchField, String searchString) {
-        dbManager.search(table, searchField, searchString); // Perform a search in the specified table
+        searchOperation.search(table, searchField, searchString);
     }
 
-    // Method to list all transaction history from the database
-    @Override
     public void listHistory() {
-        DBHistoryLogger.listHistory(); // Call method to list transaction history
+        historyOperation.listHistory();
     }
+
 }

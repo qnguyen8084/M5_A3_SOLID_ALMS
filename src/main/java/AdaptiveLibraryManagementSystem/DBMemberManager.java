@@ -11,18 +11,18 @@ package AdaptiveLibraryManagementSystem;
 
 import java.sql.*;
 
-import static AdaptiveLibraryManagementSystem.DBManager.connect;
-
 /*
  * The DBUserManager class implements the DBUserOperations interface and
  * manages the database operations for library members, such as adding,
  * removing, and listing members.
  */
 public class DBMemberManager implements Addable<Member>, Removable, Searchable, Listable  {
-    private final Logger logger;
+    private final DBHistoryLogger logger;
+    private final DBConnection dbConnection;
 
-    public DBMemberManager(Logger logger) {
-        this.logger = logger;
+    public DBMemberManager(DBHistoryLogger logger, DBConnection dbConnection) {
+        this.logger = logger;;
+        this.dbConnection = dbConnection;
     }
     /*
      * Adds a new member to the members table in the database.
@@ -32,7 +32,7 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
     @Override
     public void add(Member member) {
         String sql = "INSERT INTO members (name) VALUES (?)";  // SQL query to add a new member
-        try (Connection conn = DBManager.connect();              // Establish database connection
+        try (Connection conn = dbConnection.connect();              // Establish database connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare SQL statement with the given query
             stmt.setString(1, member.getName());                              // Set the name parameter in the query
             stmt.executeUpdate();                                 // Execute the query to insert the member
@@ -56,7 +56,7 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
             return;
         }
         String sql = "DELETE FROM members WHERE ID = (?)";        // SQL query to delete a member by ID
-        try (Connection conn = DBManager.connect();              // Establish database connection
+        try (Connection conn = dbConnection.connect();              // Establish database connection
              PreparedStatement stmt = conn.prepareStatement(sql)) { // Prepare SQL statement with the given query
             stmt.setInt(1, memberId);                            // Set the memberId parameter in the query
             stmt.executeUpdate();                                // Execute the query to delete the member
@@ -74,7 +74,7 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
     @Override
     public void list() {
         String sql = "SELECT * FROM members";                    // SQL query to retrieve all members
-        try (Connection conn = DBManager.connect();              // Establish database connection
+        try (Connection conn = dbConnection.connect();              // Establish database connection
              Statement stmt = conn.createStatement();            // Create a statement object for executing the query
              ResultSet rs = stmt.executeQuery(sql)) {            // Execute the query and get the result set
             while (rs.next()) {
@@ -89,18 +89,15 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
 
     @Override
     public void search(String searchString) {
-        String table = "members";
-        String searchField = "name";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(
-                     STR."SELECT * FROM \{table} WHERE \{searchField} = ?")) {
+        String sql = "SELECT * FROM members WHERE name = ?";
+        try (Connection conn = dbConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, searchString);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    // Assuming the structure of the table is unknown, let's print out all columns
                     int columnCount = rs.getMetaData().getColumnCount();
                     for (int i = 1; i <= columnCount; i++) {
-                        System.out.print(STR."\{rs.getMetaData().getColumnName(i)}: \{rs.getString(i)}\t");
+                        System.out.print(rs.getMetaData().getColumnName(i) + ": " + rs.getString(i) + "\t");
                     }
                     System.out.println();
                 }
@@ -109,9 +106,10 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
             throw new RuntimeException(e);
         }
     }
+
     public boolean entryExists(int memberId) {
         String sql = "SELECT * FROM members WHERE ID = ?";
-        try (Connection conn = connect();
+        try (Connection conn = dbConnection.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, memberId);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -122,5 +120,4 @@ public class DBMemberManager implements Addable<Member>, Removable, Searchable, 
             return false;
         }
     }
-
 }

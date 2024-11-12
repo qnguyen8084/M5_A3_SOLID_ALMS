@@ -24,6 +24,7 @@ public class AdaptiveLibraryManagementSystemTest {
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(outStream);
     PrintStream originalOutStream = System.out;
+    DBConnection dbConnection = new SQLiteConnection();
 
     // Redirects System.out from console to ByteArrayOutputStream before the start of each test.
     @BeforeEach
@@ -50,7 +51,7 @@ public class AdaptiveLibraryManagementSystemTest {
     // Test DBManager class object instantiation
     @Test
     public void testDBManager_Initialization_Expects_NotNull() {
-        DBManager dbManager = new DBManager();
+        DBManager dbManager = new DBManager(dbConnection);
         assertNotNull(dbManager);
     }
 
