@@ -9,6 +9,8 @@
 
 package AdaptiveLibraryManagementSystem;
 
+import java.sql.SQLException;
+
 // Interface for book-related operations using the adapter, such as adding, removing, and listing books.
 interface BookOperations {
     void addBook(Book book); // Method to add a new book.

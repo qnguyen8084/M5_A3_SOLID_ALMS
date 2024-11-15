@@ -11,6 +11,10 @@ There are several classes in my project that demonstrate the Single Responsibili
 DBUserManager, and DBLoanManager classes are responsible for managing operations such as adding, removing,
 listing, and searching for books, users, or loans respectively.
 DBConsoleAdapter is a class has the single responsibility for adapting the console operations to database operations.
+I've also added separation of concerns for Loan interactions by separating the business logic of DBLoanManager to two
+classes and an interface; LoanService for client requests and LoanDAO interface with its implementation DBLoanDAO
+for database operations. I had to also update the tests to specify which of these two classes should be used because
+initially DBLoanManager was handling both business logic and database operations.
 
 ### Open/Closed Principle
 My project demonstrates the Open/Closed Principle by having classes that are open for extension but closed for
@@ -79,6 +83,10 @@ completely separating the logic between the database and console operations.
 Overall, the project functions like it did before with the added search functionality to search member by name, book
 by title, loan by loan id, improved error handling for invalid user input, more modularized, more decoupled, and more
 adaptive code while also adhering to SOLID design principles.
+
+I also started on separating the business logic from the database operations by creating a DAO layer, but only had
+time to implement it for Loan interactions. If this process was also completed for Member and Book interactions
+It would further promote the Single Responsibility Principle by Separation of Concerns.
 
 <figure>
 <figcaption>SOLID Class Diagram</figcaption></figcaption>
