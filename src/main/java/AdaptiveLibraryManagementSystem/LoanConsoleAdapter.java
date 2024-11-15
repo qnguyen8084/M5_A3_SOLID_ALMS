@@ -10,29 +10,29 @@
 package AdaptiveLibraryManagementSystem;
 
 public class LoanConsoleAdapter implements LoanOperations {
-    private final DBLoanManager loanManager;
+    private final LoanService loanService;
 
-    public LoanConsoleAdapter(DBLoanManager loanManager) {
-        this.loanManager = loanManager;
+    public LoanConsoleAdapter(LoanService loanService) {
+        this.loanService = loanService;
     }
 
     @Override
     public void borrowBook(Loan loan) {
-        loanManager.borrowBook(loan);
+        loanService.borrowBook(loan);
     }
 
     @Override
     public void returnBook(int memberId, int bookId) {
-        loanManager.returnBook(memberId, bookId);
+        loanService.returnBook(memberId, bookId);
     }
 
     @Override
     public void listLoans() {
-        loanManager.list();
+        loanService.listLoans();
     }
 
     @Override
     public void searchLoan(String id) {
-        loanManager.search(id);
+        loanService.searchLoan(Integer.parseInt(id));
     }
 }

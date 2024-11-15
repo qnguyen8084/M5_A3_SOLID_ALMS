@@ -9,8 +9,6 @@
 
 package AdaptiveLibraryManagementSystem;
 
-import org.sqlite.core.DB;
-
 import java.util.Scanner;
 
 public class AdministratorInterface implements ConsoleBookOperations, ConsoleMemberOperations, ConsoleLoanOperations,
@@ -25,7 +23,7 @@ public class AdministratorInterface implements ConsoleBookOperations, ConsoleMem
         this.adaptor = new DBConsoleAdapter(
                 new BookConsoleAdapter(new DBBookManager(logger, dbConnection)),
                 new MemberConsoleAdapter(new DBMemberManager(logger, dbConnection)),
-                new LoanConsoleAdapter(new DBLoanManager(logger, dbConnection)),
+                new LoanConsoleAdapter(new LoanService(new DBLoanDAO(dbConnection, logger))),
                 new HistoryConsoleAdapter(logger),
                 new SearchConsoleAdapter(new DBManager(dbConnection))
         );
