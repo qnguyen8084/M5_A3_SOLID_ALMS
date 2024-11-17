@@ -1,12 +1,15 @@
 
-# SOLID ESSAY 
+
 
 **Dhruv Sandip Shah**  
+
 **CS635 - Advanced Object-Oriented Design & Programming**  
 
 **Dr. Magda Tsintsadze**  
 
 ## Module 5 Assignment: Assignment 3: SOLID Principle Application  
+
+# SOLID ESSAY 
 
 ### Single Responsibility Principle (SRP)  
 The classes "DBBookManager", "DBUserManager", and "DBLoanManager each focus on specific responsibilities such as managing books, users, and loans. To further refine SRP, I split the "DBLoanManager" into two classes—"LoanService" and "LoanDAO". This separation ensures that business logic and database operations are handled independently, making the code more maintainable and focused.  
